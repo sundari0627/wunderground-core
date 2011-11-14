@@ -6,7 +6,7 @@ the following examples shows how to use wunderground-core api to getting
 weather data from a wunderground weather station:
 
 == Simple use  in Java application ==
-{{{
+<code language="java">
 
 // create a instance of a wunderground data reader
 HttpDataReaderService dataReader = new HttpDataReaderService();
@@ -29,5 +29,4 @@ System.out.println(weatherStation.getCity() + " " + weatherStation.getState() + 
 // print datetime of measure and temperature ...
 System.out.println(current.getDateTime() + " " + current.getTemperature());
 
-
-}}}
+</code>
