@@ -22,9 +22,12 @@ DataSet current = httpDataReaderService.getCurrentData();
 
 // print selected weather station ID
 System.out.println(weatherStation.getStationId());
-System.out.println(weatherStation.getCity() + " " + weatherStation.getState() + " " + weatherStation.getCountry());
 
 // print city, state and country of weather station
+System.out.println(weatherStation.getCity() + " " + weatherStation.getState() + " " + weatherStation.getCountry());
+
+// print datetime of measure and temperature ...
+System.out.println(current.getDateTime() + " " + current.getTemperature());
 
 
 }}}
