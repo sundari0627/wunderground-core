@@ -8,4 +8,5 @@ weather data from a wunderground weather station:
 
 {{{
 HttpDataReaderService dataReader = new HttpDataReaderService();
+httpDataReaderService.setWeatherStation(weatherStation);
 }}}
