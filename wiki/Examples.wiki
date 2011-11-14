@@ -7,6 +7,14 @@ weather data from a wunderground weather station:
 
 
 {{{
+
+// create a instance of a wunderground data reader
 HttpDataReaderService dataReader = new HttpDataReaderService();
+
+// select a wunderground weather station
+WeatherStation weatherStation = WeatherStations.ALL.get(stationId);
+
+// set selected weather station to data reader
 httpDataReaderService.setWeatherStation(weatherStation);
+
 }}}
