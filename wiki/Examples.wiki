@@ -1,13 +1,11 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+= Examples =
 
-Add your content here.
+the following examples shows how to use wunderground-core api to getting
+weather data from a wunderground weather station:
 
 
-= Details =
+<code>
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+</code>
