@@ -7,5 +7,5 @@ weather data from a wunderground weather station:
 
 
 <code>
-
+  HttpDataReaderService dataReader = new HttpDataReaderService();
 </code>
