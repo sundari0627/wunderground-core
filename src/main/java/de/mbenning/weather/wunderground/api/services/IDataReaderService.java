@@ -28,4 +28,6 @@ public interface IDataReaderService {
 	
 	DataSet getCurrentData();
 	
+	List<DataSet> findDataSetsByDateTime(String dateTime) throws UnsupportedEncodingException, IOException, ParseException;
+	
 }

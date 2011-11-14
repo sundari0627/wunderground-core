@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 import de.mbenning.weather.wunderground.api.domain.DataColumn;
 import de.mbenning.weather.wunderground.api.domain.DataSet;
+import de.mbenning.weather.wunderground.api.domain.IDataListener;
 import de.mbenning.weather.wunderground.api.domain.WeatherStation;
 import de.mbenning.weather.wunderground.api.services.IDataReaderService;
 
@@ -32,6 +33,8 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
     
     protected WeatherStation weatherStation;
     protected boolean isStationChanged = false;
+    
+    protected List<IDataListener> listeners = new ArrayList<IDataListener>();
 
 	/* (non-Javadoc)
 	 * @see de.mbenning.weather.wunderground.api.services.IDataReaderService#getNextLine()
@@ -111,7 +114,32 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
 			return null;
 		}
 	}
+	
+	public List<DataSet> findDataSetsByDateTime(String dateTime) throws UnsupportedEncodingException, IOException, ParseException {
+		List<DataSet> dataSets = this.readDataSets();
+		List<DataSet> result = new ArrayList<DataSet>(); 
+		for (DataSet dataSet : dataSets) {
+			
+		}
+		return result;
+	}
+	
+	protected void handleListeners(DataSet dataSet) {
+		// TODO: handle all listeners
+	}
+	
+	public void registerListener(IDataListener dataListener) {
+		if(dataListener != null) {
+			this.listeners.add(dataListener);
+		}
+	}
 
+	public void removeListener(IDataListener dataListener) {
+		if(dataListener != null && this.listeners.contains(dataListener)) {
+			this.listeners.remove(dataListener);
+		}
+	}
+	
 	public long getCurrentLine() {
 		return currentLine;
 	}
