@@ -20,8 +20,11 @@ httpDataReaderService.setWeatherStation(weatherStation);
 // get current weather data from selected station
 DataSet current = httpDataReaderService.getCurrentData();
 
-// print selected weather station ID, name, state and country ...
-System.out.println(weatherStation.getStationId() + " " + weatherStation.getCity() + " " + weatherStation.getState() + " " + weatherStation.getCountry());
-				System.out.println(current.getDateTime() + " " + current.getTemperature());
+// print selected weather station ID
+System.out.println(weatherStation.getStationId());
+System.out.println(weatherStation.getCity() + " " + weatherStation.getState() + " " + weatherStation.getCountry());
+
+// print city, state and country of weather station
+
 
 }}}
