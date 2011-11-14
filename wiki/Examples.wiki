@@ -17,7 +17,7 @@ WeatherStation weatherStation = WeatherStations.ALL.get(stationId);
 // set selected weather station to data reader
 httpDataReaderService.setWeatherStation(weatherStation);
 
-// get current weather data from selected station
+// get current (last) weather data set from selected station
 DataSet current = httpDataReaderService.getCurrentData();
 
 // print selected weather station ID
