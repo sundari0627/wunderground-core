@@ -6,6 +6,6 @@ the following examples shows how to use wunderground-core api to getting
 weather data from a wunderground weather station:
 
 
-<code>
-  HttpDataReaderService dataReader = new HttpDataReaderService();
-</code>
+{{{
+HttpDataReaderService dataReader = new HttpDataReaderService();
+}}}
