@@ -12,7 +12,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mbenning.weather.wunderground.api.domain.DataSet;
+import de.mbenning.weather.wunderground.api.domain.HttpProxy;
+import de.mbenning.weather.wunderground.api.domain.WeatherStations;
 import de.mbenning.weather.wunderground.impl.FileDataReader;
+import de.mbenning.weather.wunderground.impl.listeners.FreezeListener;
+import de.mbenning.weather.wunderground.impl.services.HttpDataReaderService;
 
 /**
  * @author Martin.Benning
@@ -41,6 +45,16 @@ public class FileDataReaderTest {
                     + " "
                     + dataSet2.getWindSpeedKmh());
         }
+    }
+    
+    @Test
+    public void testListeners() throws Exception {
+    	HttpDataReaderService dataReader = new HttpDataReaderService();
+    	dataReader.setWeatherStation(WeatherStations.ALL.get("IDRENTHE48"));
+    	dataReader.setHttpProxy(new HttpProxy());
+    	dataReader.registerListener(new FreezeListener());
+    	
+        DataSet current = dataReader.getCurrentData();
     }
     
 }

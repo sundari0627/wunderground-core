@@ -109,7 +109,9 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
 	public DataSet getCurrentData() {
 		try {
 			List<DataSet> dataSets = this.readDataSets();
-			return dataSets.get((dataSets.size()-1));
+			DataSet currentDataSet = dataSets.get((dataSets.size()-1));
+			this.handleListeners(currentDataSet);
+			return currentDataSet;
 		} catch (Exception e) {
 			return null;
 		}
@@ -125,7 +127,13 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
 	}
 	
 	protected void handleListeners(DataSet dataSet) {
-		// TODO: handle all listeners
+		if(dataSet != null) {
+			for(IDataListener listener : this.listeners) {
+				if(listener.isConditionSatisfied(dataSet)) {
+					listener.process(dataSet);
+				}
+			}
+		}
 	}
 	
 	public void registerListener(IDataListener dataListener) {
