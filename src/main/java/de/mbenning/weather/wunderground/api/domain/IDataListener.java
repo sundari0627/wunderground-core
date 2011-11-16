@@ -9,7 +9,7 @@ package de.mbenning.weather.wunderground.api.domain;
  */
 public interface IDataListener {
 	
-	void define(DataSet dataSet); 
+	boolean isConditionSatisfied(DataSet dataSet); 
 	
 	void process(DataSet dataSet);
 
