@@ -50,7 +50,7 @@ public class HttpDataReaderService extends AbstractDataReaderService {
 			URL url = new URL(this.url.replace("{1}", this.weatherStation.getStationId()));
 			this.connection = (HttpURLConnection)url.openConnection();
 			this.connection.setRequestMethod("GET");
-			this.connection.setUseCaches (false);
+			this.connection.setUseCaches(false);
 			
 			this.scanner = new Scanner(this.connection.getInputStream());
 			String line = this.scanner.nextLine();
