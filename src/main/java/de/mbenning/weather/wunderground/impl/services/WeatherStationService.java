@@ -135,4 +135,16 @@ public class WeatherStationService implements IWeatherStationService {
 		return stations;
 	}
 
+	public WeatherStation getWeatherStation(String country, String id) {
+		if(country != null && id != null) {
+			List<WeatherStation> stations = this.findAllWeatherStationsByCountry(country);
+			for (WeatherStation weatherStation : stations) {
+				if(weatherStation.getStationId().equals(id)) {
+					return weatherStation;
+				}
+			}
+		}
+		return null;
+	}
+
 }

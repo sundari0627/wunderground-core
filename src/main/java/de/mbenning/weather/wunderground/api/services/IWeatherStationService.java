@@ -15,4 +15,6 @@ public interface IWeatherStationService {
 
 	List<WeatherStation> findAllWeatherStationsByCountry(String country);
 	
+	WeatherStation getWeatherStation(String country, String id);
+	
 }
