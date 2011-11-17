@@ -5,7 +5,7 @@
 the following examples shows how to use wunderground-core api to getting
 weather data from a wunderground weather station:
 
-== Simple use HttpDataReaderService in Java application ==
+== Simple use a HttpDataReaderService in Java application ==
 {{{
 
 // create a instance of a wunderground data reader
