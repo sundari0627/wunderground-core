@@ -32,7 +32,7 @@ System.out.println(current.getDateTime() + " " + current.getTemperature());
 
 }}}
 
-== Find out all weather stations by country ==
+== Find out all weather stations of a country by using WeatherStationService ==
 
 {{{
 // create an instance of WeatherStationService
