@@ -30,12 +30,12 @@ public interface IDataReaderService {
 	
 	List<DataSet> findDataSetsByDateTime(String dateTime) throws UnsupportedEncodingException, IOException, ParseException;
 	
-	DataSet minTemperature() throws UnsupportedEncodingException, IOException, ParseException;
+	DataSet minTemperature();
 	
-	DataSet minDewPoint() throws UnsupportedEncodingException, IOException, ParseException;
+	DataSet minDewPoint();
 	
-	DataSet maxTemperature() throws UnsupportedEncodingException, IOException, ParseException;
+	DataSet maxTemperature();
 	
-	DataSet maxDewPoint() throws UnsupportedEncodingException, IOException, ParseException;
+	DataSet maxDewPoint();
 	
 }
