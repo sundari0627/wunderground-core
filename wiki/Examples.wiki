@@ -6,6 +6,7 @@ the following examples shows how to use wunderground-core api to getting
 weather data from a wunderground weather station:
 
 == Simple use a HttpDataReaderService in Java application ==
+
 {{{
 
 // create a instance of a wunderground data reader
@@ -28,5 +29,21 @@ System.out.println(weatherStation.getCity() + " " + weatherStation.getState() + 
 
 // print datetime of measure and temperature ...
 System.out.println(current.getDateTime() + " " + current.getTemperature());
+
+}}}
+
+== Find out all weather stations by country ==
+
+{{{
+// create an instance of WeatherStationService
+WeatherStationService weatherStationService = new WeatherStationService();
+
+// find all weather stations
+List<WeatherStation> stations = weatherStationService.findAllWeatherStationsByCountry("Germany");
+
+// iterate over all founded weather stations and print it into console
+for (WeatherStation weatherStation : stations) {
+			System.out.println(weatherStation.getStationId() + "\t" + weatherStation.getNeighborhood() + "\t" + weatherStation.getCity() + "\t" + weatherStation.getCountry());
+					}
 
 }}}
