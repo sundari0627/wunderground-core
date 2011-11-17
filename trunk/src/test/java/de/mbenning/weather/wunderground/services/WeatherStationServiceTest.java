@@ -5,6 +5,7 @@ package de.mbenning.weather.wunderground.services;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,16 @@ public class WeatherStationServiceTest extends AbstractBaseServiceTest {
     		DataSet dataSet = this.httpDataReaderService.getCurrentData();
     		this.printWeatherStationData(weatherStation, dataSet);
 		}
+    }
+    
+    @Test
+    public void testGetWeatherStation() throws Exception {
+    	WeatherStation weatherStation = this.weatherStationService.getWeatherStation("Netherlands", "INOORDBR35");
+    	Assert.assertNotNull(weatherStation);
+    	
+    	Assert.assertEquals("INOORDBR35", weatherStation.getStationId());
+    	Assert.assertEquals("Netherlands", weatherStation.getCountry());
+    	Assert.assertEquals("Boxmeer", weatherStation.getCity());
     }
 
 }
