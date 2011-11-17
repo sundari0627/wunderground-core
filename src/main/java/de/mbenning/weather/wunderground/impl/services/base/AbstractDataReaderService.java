@@ -129,38 +129,55 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
 		return result;
 	}
 	
-	public DataSet minTemperature() throws UnsupportedEncodingException, IOException, ParseException {
-		List<DataSet> dataSets = this.readDataSets();
+	public DataSet minTemperature() {
 		DataSet min = null;
-		if(dataSets != null) {
-			min = Collections.min(dataSets, new DataSetTempComparator());
+		try {
+			List<DataSet> dataSets = this.readDataSets();
+			if(dataSets != null) {
+				min = Collections.min(dataSets, new DataSetTempComparator());
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		
+		return min;
+	}
+	
+	public DataSet minDewPoint() {
+		DataSet min = null;
+		try {
+			List<DataSet> dataSets = this.readDataSets();
+			if(dataSets != null) {
+				min = Collections.min(dataSets, new DataSetDewComparator());
+			}
+		} catch (Exception e) {
+			return null;
 		}
 		return min;
 	}
 	
-	public DataSet minDewPoint() throws UnsupportedEncodingException, IOException, ParseException {
-		List<DataSet> dataSets = this.readDataSets();
-		DataSet min = null;
-		if(dataSets != null) {
-			min = Collections.min(dataSets, new DataSetDewComparator());
-		}
-		return min;
-	}
-	
-	public DataSet maxTemperature() throws UnsupportedEncodingException, IOException, ParseException {
-		List<DataSet> dataSets = this.readDataSets();
+	public DataSet maxTemperature() {
 		DataSet max = null;
-		if(dataSets != null) {
-			max = Collections.max(dataSets, new DataSetTempComparator());
+		try {
+			List<DataSet> dataSets = this.readDataSets();
+			if(dataSets != null) {
+				max = Collections.max(dataSets, new DataSetTempComparator());
+			}
+		} catch (Exception e) {
+			return null;
 		}
 		return max;
 	}
 	
-	public DataSet maxDewPoint() throws UnsupportedEncodingException, IOException, ParseException {
-		List<DataSet> dataSets = this.readDataSets();
+	public DataSet maxDewPoint() {
 		DataSet max = null;
-		if(dataSets != null) {
-			max = Collections.max(dataSets, new DataSetTempComparator());
+		try {
+			List<DataSet> dataSets = this.readDataSets();
+			if(dataSets != null) {
+				max = Collections.max(dataSets, new DataSetTempComparator());
+			}
+		} catch (Exception e) {
+			return null;
 		}
 		return max;
 	}
