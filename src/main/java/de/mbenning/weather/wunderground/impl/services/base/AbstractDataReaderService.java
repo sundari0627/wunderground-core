@@ -8,12 +8,15 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import de.mbenning.weather.wunderground.api.domain.DataColumn;
 import de.mbenning.weather.wunderground.api.domain.DataSet;
+import de.mbenning.weather.wunderground.api.domain.DataSetDewComparator;
+import de.mbenning.weather.wunderground.api.domain.DataSetTempComparator;
 import de.mbenning.weather.wunderground.api.domain.IDataListener;
 import de.mbenning.weather.wunderground.api.domain.WeatherStation;
 import de.mbenning.weather.wunderground.api.services.IDataReaderService;
@@ -124,6 +127,42 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
 			
 		}
 		return result;
+	}
+	
+	public DataSet minTemperature() throws UnsupportedEncodingException, IOException, ParseException {
+		List<DataSet> dataSets = this.readDataSets();
+		DataSet min = null;
+		if(dataSets != null) {
+			min = Collections.min(dataSets, new DataSetTempComparator());
+		}
+		return min;
+	}
+	
+	public DataSet minDewPoint() throws UnsupportedEncodingException, IOException, ParseException {
+		List<DataSet> dataSets = this.readDataSets();
+		DataSet min = null;
+		if(dataSets != null) {
+			min = Collections.min(dataSets, new DataSetDewComparator());
+		}
+		return min;
+	}
+	
+	public DataSet maxTemperature() throws UnsupportedEncodingException, IOException, ParseException {
+		List<DataSet> dataSets = this.readDataSets();
+		DataSet max = null;
+		if(dataSets != null) {
+			max = Collections.max(dataSets, new DataSetTempComparator());
+		}
+		return max;
+	}
+	
+	public DataSet maxDewPoint() throws UnsupportedEncodingException, IOException, ParseException {
+		List<DataSet> dataSets = this.readDataSets();
+		DataSet max = null;
+		if(dataSets != null) {
+			max = Collections.max(dataSets, new DataSetTempComparator());
+		}
+		return max;
 	}
 	
 	protected void handleListeners(DataSet dataSet) {

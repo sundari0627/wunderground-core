@@ -5,6 +5,8 @@ package de.mbenning.weather.wunderground;
 
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.core.io.ClassPathResource;
@@ -55,6 +57,46 @@ public class FileDataReaderTest {
     	dataReader.registerListener(new FreezeListener());
     	
         DataSet current = dataReader.getCurrentData();
+    }
+    
+    @Test
+    public void testMinTemperature() throws Exception {
+    	HttpDataReaderService dataReader = new HttpDataReaderService();
+    	dataReader.setHttpProxy(new HttpProxy());
+    	dataReader.setWeatherStation(WeatherStations.ALL.get("INOORDBR35"));
+    	DataSet min = dataReader.minTemperature();
+    	Assert.assertNotNull(min);
+    	System.out.println(min.getDateTime() + " " + min.getTemperature());
+    }
+    
+    @Test
+    public void testMinDewPoint() throws Exception {
+    	HttpDataReaderService dataReader = new HttpDataReaderService();
+    	dataReader.setHttpProxy(new HttpProxy());
+    	dataReader.setWeatherStation(WeatherStations.ALL.get("INOORDBR35"));
+    	DataSet min = dataReader.minDewPoint();
+    	Assert.assertNotNull(min);
+    	System.out.println(min.getDateTime() + " " + min.getDewPoint());
+    }
+    
+    @Test
+    public void testMaxTemperature() throws Exception {
+    	HttpDataReaderService dataReader = new HttpDataReaderService();
+    	dataReader.setHttpProxy(new HttpProxy());
+    	dataReader.setWeatherStation(WeatherStations.ALL.get("INOORDBR35"));
+    	DataSet max = dataReader.maxTemperature();
+    	Assert.assertNotNull(max);
+    	System.out.println(max.getDateTime() + " " + max.getTemperature());
+    }
+    
+    @Test
+    public void testMaxDewPoint() throws Exception {
+    	HttpDataReaderService dataReader = new HttpDataReaderService();
+    	dataReader.setHttpProxy(new HttpProxy());
+    	dataReader.setWeatherStation(WeatherStations.ALL.get("INOORDBR35"));
+    	DataSet max = dataReader.maxDewPoint();
+    	Assert.assertNotNull(max);
+    	System.out.println(max.getDateTime() + " " + max.getDewPoint());
     }
     
 }
