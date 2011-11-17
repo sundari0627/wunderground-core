@@ -41,8 +41,8 @@ WeatherStationService weatherStationService = new WeatherStationService();
 // find all weather stations
 List<WeatherStation> stations = weatherStationService.findAllWeatherStationsByCountry("Germany");
 
-// iterate over all founded weather stations and print it into console
+// iterate over all founded weather stations and write some information to stdout
 for (WeatherStation weatherStation : stations) {
-    System.out.println(weatherStation.getStationId() + "\t" + weatherStation.getNeighborhood() + "\t" + weatherStation.getCity() + "\t" + weatherStation.getCountry());		
+    System.out.println(weatherStation.getStationId() + "\t" + "\t" + weatherStation.getCity() + "\t" + weatherStation.getCountry());		
 }
 }}}
