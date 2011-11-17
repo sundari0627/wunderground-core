@@ -15,6 +15,7 @@ import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import de.mbenning.weather.wunderground.api.domain.HttpProxy;
@@ -26,6 +27,7 @@ import de.mbenning.weather.wunderground.api.services.IWeatherStationService;
  *
  */
 @Service
+@Scope("prototype")
 @Qualifier("weatherStationService")
 public class WeatherStationService implements IWeatherStationService {
 	
@@ -39,7 +41,7 @@ public class WeatherStationService implements IWeatherStationService {
 	 * @see de.mbenning.weather.wunderground.api.services.IWeatherStationService#findAllWeatherStationsByCountry(java.lang.String)
 	 */
 	public List<WeatherStation> findAllWeatherStationsByCountry(String country) {
-		List<WeatherStation> stations = parseStations(this.loadSource(country));
+		List<WeatherStation> stations = parseStations(this.loadSource(country), country);
 		return stations;
 	}
 	
@@ -64,7 +66,7 @@ public class WeatherStationService implements IWeatherStationService {
 		}
 	}
 	
-	protected List<WeatherStation> parseStations(Scanner sourceScanner) {
+	protected List<WeatherStation> parseStations(Scanner sourceScanner, String country) {
 		List<WeatherStation> stations = new ArrayList<WeatherStation>();
 		if(sourceScanner != null) {
 			boolean isAdding = false;
@@ -76,10 +78,13 @@ public class WeatherStationService implements IWeatherStationService {
 						String[] lineParts1 = line.split("<td><a href=");
 						String[] lineParts2 = lineParts1[1].split("\">");
 						String[] idParts = lineParts2[1].split("</a></td>");
+						// ID
 						if(idParts[0] != null) {
 							weatherStation = new WeatherStation(idParts[0]);
+							weatherStation.setCountry(country);
 							isAdding = true;
 						}
+						// Neighborhood
 						if(isAdding) {
 							String neighLine = sourceScanner.nextLine();
 							String[] neighParts1 = neighLine.split("<td>");
@@ -88,29 +93,32 @@ public class WeatherStationService implements IWeatherStationService {
 								weatherStation.setNeighborhood(neighParts2[0].trim());
 							}
 						}
+						// City
 						if(isAdding) {
-							String neighLine = sourceScanner.nextLine();
-							String[] neighParts1 = neighLine.split("<td>");
-							String[] neighParts2 = neighParts1[1].split("&nbsp;</td>");
-							if(neighParts2 != null && neighParts2.length > 0 && neighParts2[0] != null && weatherStation != null) {
-								weatherStation.setCity(neighParts2[0].trim());
+							String cityLine = sourceScanner.nextLine();
+							String[] cityParts1 = cityLine.split("<td>");
+							String[] cityParts2 = cityParts1[1].split("&nbsp;</td>");
+							if(cityParts2 != null && cityParts2.length > 0 && cityParts2[0] != null && weatherStation != null) {
+								weatherStation.setCity(cityParts2[0].trim());
 							}
 						}
+						// Station type
 						if(isAdding) {
-							String neighLine = sourceScanner.nextLine();
-							String[] neighParts1 = neighLine.split("<td>");
-							String[] neighParts2 = neighParts1[1].split("&nbsp;</td>");
-							if(neighParts2 != null && neighParts2.length > 0 && neighParts2[0] != null && weatherStation != null) {
-								weatherStation.setStationType(neighParts2[0].trim());
+							String stationTypeLine = sourceScanner.nextLine();
+							String[] stationTypeParts1 = stationTypeLine.split("<td>");
+							String[] stationTypeParts2 = stationTypeParts1[1].split("&nbsp;</td>");
+							if(stationTypeParts2 != null && stationTypeParts2.length > 0 && stationTypeParts2[0] != null && weatherStation != null) {
+								weatherStation.setStationType(stationTypeParts2[0].trim());
 							}
 						}
+						// Site
 						if(isAdding) {
-							String neighLine = sourceScanner.nextLine();
-							if(!neighLine.contains("<td>&nbsp;</td>")) {
-								String[] neighParts1 = neighLine.split("<a href=\"");
-								String[] neighParts2 = neighParts1[1].split("\"></a></td>");
-								if(neighParts2 != null && neighParts2.length > 0 && neighParts2[0] != null && weatherStation != null) {
-									weatherStation.setSite(neighParts2[0].trim());
+							String siteLine = sourceScanner.nextLine();
+							if(!siteLine.contains("<td>&nbsp;</td>")) {
+								String[] siteParts1 = siteLine.split("<a href=\"");
+								String[] siteParts2 = siteParts1[1].split("\"></a></td>");
+								if(siteParts2 != null && siteParts2.length > 0 && siteParts2[0] != null && weatherStation != null) {
+									weatherStation.setSite(siteParts2[0].trim());
 								}
 							}
 						}

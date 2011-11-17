@@ -24,7 +24,11 @@ public abstract class AbstractBaseServiceTest {
 		System.out.println(weatherStation.getStationId() + " " + city + " " + state + " " + country);
 		
 		System.out.println("DATETIME\t TEMP\tDEW\tWSPD");
-		System.out.println(sdf.format(dataSet.getDateTime()) + " " + dataSet.getTemperature() + "\t" + dataSet.getDewPoint() + "\t" + dataSet.getWindSpeedKmh());
+		if(dataSet != null) {
+			System.out.println(sdf.format(dataSet.getDateTime()) + " " + dataSet.getTemperature() + "\t" + dataSet.getDewPoint() + "\t" + dataSet.getWindSpeedKmh());
+		} else {
+			System.out.println("could not receive weather data");
+		}
 		
 		System.out.println("");
 	}
