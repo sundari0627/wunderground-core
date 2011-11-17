@@ -147,4 +147,12 @@ public class WeatherStationService implements IWeatherStationService {
 		return null;
 	}
 
+	public HttpProxy getHttpProxy() {
+		return httpProxy;
+	}
+
+	public void setHttpProxy(HttpProxy httpProxy) {
+		this.httpProxy = httpProxy;
+	}
+
 }

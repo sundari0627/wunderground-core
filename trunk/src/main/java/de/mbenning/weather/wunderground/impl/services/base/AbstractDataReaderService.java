@@ -183,6 +183,7 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
 	}
 	
 	protected void handleListeners(DataSet dataSet) {
+		// TODO: handle all listeners 
 		if(dataSet != null) {
 			for(IDataListener listener : this.listeners) {
 				if(listener.isConditionSatisfied(dataSet)) {
