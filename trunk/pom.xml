@@ -45,6 +45,18 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -63,26 +75,26 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-	      	<groupId>org.springframework</groupId>
-	      	<artifactId>spring-core</artifactId>
-	      	<version>${org.springframework.version}</version>
-	    </dependency>
-	    <dependency>
-	      	<groupId>org.springframework</groupId>
-	      	<artifactId>spring-beans</artifactId>
-	      	<version>${org.springframework.version}</version>
-	    </dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
 		<dependency>
-	      	<groupId>org.springframework</groupId>
-	      	<artifactId>spring-test</artifactId>
-	      	<version>${org.springframework.version}</version>
-	    </dependency>
-	    <dependency>
-	      	<groupId>org.springframework</groupId>
-	      	<artifactId>spring-context</artifactId>
-	      	<version>${org.springframework.version}</version>
-	    </dependency>
-		
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
 	</dependencies>
 
 </project>
