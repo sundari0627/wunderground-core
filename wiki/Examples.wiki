@@ -1,5 +1,7 @@
 #summary One-sentence summary of this page.
 
+Downloads
+
 = Examples =
 
 the following examples shows how to use wunderground-core api to getting
