@@ -5,6 +5,7 @@ package de.mbenning.weather.wunderground.services;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 
 import junit.framework.Assert;
 
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.mbenning.weather.wunderground.api.domain.DataSet;
 import de.mbenning.weather.wunderground.api.domain.WeatherStations;
 import de.mbenning.weather.wunderground.impl.services.HttpDataReaderService;
 import de.mbenning.weather.wunderground.services.base.AbstractBaseServiceTest;
@@ -65,6 +67,16 @@ public class HttpDataReaderServiceTest extends AbstractBaseServiceTest {
     	
     	this.httpDataReaderService.setWeatherStation(WeatherStations.IZEELAND13_GOES);
     	this.printWeatherStationData(httpDataReaderService.getWeatherStation(), httpDataReaderService.getCurrentData());
+    }
+    
+    @Test
+    public void testGetDataByDate() throws Exception {
+    	Date date = new Date();
+    	this.httpDataReaderService.setWeatherStation(WeatherStations.INOORDBR35_BOXMEER);
+    	this.httpDataReaderService.setDate(date);
+    	DataSet dataSet = this.httpDataReaderService.minTemperature();
+    	this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), dataSet);
+    	
     }
     
 }
