@@ -9,6 +9,7 @@ import java.util.Date;
 
 import junit.framework.Assert;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.mbenning.weather.wunderground.api.domain.DataSet;
+import de.mbenning.weather.wunderground.api.domain.HttpProxy;
 import de.mbenning.weather.wunderground.api.domain.WeatherStations;
 import de.mbenning.weather.wunderground.impl.services.HttpDataReaderService;
 import de.mbenning.weather.wunderground.services.base.AbstractBaseServiceTest;
@@ -71,12 +73,14 @@ public class HttpDataReaderServiceTest extends AbstractBaseServiceTest {
     
     @Test
     public void testGetDataByDate() throws Exception {
-    	Date date = new Date();
+        Date weatherDate = new DateTime(2011, 8, 15, 0, 0, 0).toDate();
     	this.httpDataReaderService.setWeatherStation(WeatherStations.INOORDBR35_BOXMEER);
-    	this.httpDataReaderService.setDate(date);
+    	this.httpDataReaderService.setHttpProxy(new HttpProxy());
+    	this.httpDataReaderService.setWeatherDate(weatherDate);
     	DataSet dataSet = this.httpDataReaderService.minTemperature();
     	this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), dataSet);
-    	
+    	dataSet = this.httpDataReaderService.maxTemperature();
+        this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), dataSet);
     }
     
 }
