@@ -46,7 +46,7 @@ List<WeatherStation> stations = weatherStationService.findAllWeatherStationsByCo
 // iterate over all founded weather stations and write some information to stdout
 for (WeatherStation weatherStation : stations) {
     System.out.println(weatherStation.getStationId() + "\t" + "\t" + weatherStation.getCity() + 
-"\t" + weatherStation.getCountry());		
+         "\t" + weatherStation.getCountry());		
 }
 }}}
 
