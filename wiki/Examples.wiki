@@ -48,3 +48,22 @@ for (WeatherStation weatherStation : stations) {
     System.out.println(weatherStation.getStationId() + "\t" + "\t" + weatherStation.getCity() + "\t" + weatherStation.getCountry());		
 }
 }}}
+
+== Fetch weather data by given date ==
+
+{{{
+// set desired date ...
+Date weatherDate = new DateTime(2011, 8, 15, 0, 0, 0).toDate();
+// create an instance of HttpDataReaderService
+HttpDataReaderService dataReader = new HttpDataReaderService();
+// set desired weather station ...
+dataReader.setWeatherStation(WeatherStations.INOORDBR35_BOXMEER);   	
+// set desired date to HttpDataReaderService
+dataReader.setWeatherDate(weatherDate);
+
+// investigate minimum temperature of desired day ...
+DataSet minTemp = this.httpDataReaderService.minTemperature();
+    	
+// investigate maximum temperature of desired day ...
+DataSet maxTemp = this.httpDataReaderService.maxTemperature();
+}}}
