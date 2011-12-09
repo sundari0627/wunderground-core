@@ -37,6 +37,8 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
     protected WeatherStation weatherStation;
     protected boolean isStationChanged = false;
     
+    protected List<DataSet> datasets = new ArrayList<DataSet>();
+    
     protected List<IDataListener> listeners = new ArrayList<IDataListener>();
 
 	/* (non-Javadoc)
@@ -79,7 +81,7 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         
-        if(columns != null && columns.length > 0 && !columns[0].isEmpty()) {
+        if(columns != null && columns.length > 0 && !columns[0].equalsIgnoreCase("")) {
 	        dataSet.setDateTime(sdf.parse(columns[DataColumn.TIME.getIndex()]));
 	        dataSet.setTemperature(Double.valueOf(columns[DataColumn.TEMPERATURE.getIndex()]));
 	        dataSet.setDewPoint(Double.valueOf(columns[DataColumn.DEWPOINT.getIndex()]));
@@ -99,14 +101,15 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
 	 */
 	public List<DataSet> readDataSets() throws IOException, ParseException, UnsupportedEncodingException {
 		init();
-		List<DataSet> datasets = new ArrayList<DataSet>();
-        while(this.scanner.hasNext()) {
-        	DataSet next = nextDataSet();
-        	if(next != null && next.getDateTime() != null) {
-        		datasets.add(next);
-        	}
-        }
-        return datasets;
+		if(this.datasets == null || this.datasets.size() == 0) {
+            while(this.scanner.hasNext()) {
+            	DataSet next = nextDataSet();
+            	if(next != null && next.getDateTime() != null) {
+            		datasets.add(next);
+            	}
+            }
+		}
+        return this.datasets;
 	}
 	
 	public DataSet getCurrentData() {
@@ -225,5 +228,13 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
 		this.isStationChanged = true;
 		this.weatherStation = weatherStation;
 	}
+
+    public List<DataSet> getDatasets() {
+        return datasets;
+    }
+
+    public void setDatasets(List<DataSet> datasets) {
+        this.datasets = datasets;
+    }
 
 }
