@@ -73,14 +73,18 @@ public class HttpDataReaderServiceTest extends AbstractBaseServiceTest {
     
     @Test
     public void testGetDataByDate() throws Exception {
+        // set desired date ...
         Date weatherDate = new DateTime(2011, 8, 15, 0, 0, 0).toDate();
     	this.httpDataReaderService.setWeatherStation(WeatherStations.INOORDBR35_BOXMEER);
     	this.httpDataReaderService.setHttpProxy(new HttpProxy());
+    	// set desired date to HttpDataReaderService
     	this.httpDataReaderService.setWeatherDate(weatherDate);
-    	DataSet dataSet = this.httpDataReaderService.minTemperature();
-    	this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), dataSet);
-    	dataSet = this.httpDataReaderService.maxTemperature();
-        this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), dataSet);
+    	// investigate minimum temperature of desired day ...
+    	DataSet minTemp = this.httpDataReaderService.minTemperature();
+    	this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), minTemp);
+    	// investigate maximum temperature of desired day ...
+    	DataSet maxTemp = this.httpDataReaderService.maxTemperature();
+        this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), maxTemp);
     }
     
 }
