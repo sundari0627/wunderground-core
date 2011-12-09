@@ -45,11 +45,12 @@ List<WeatherStation> stations = weatherStationService.findAllWeatherStationsByCo
 
 // iterate over all founded weather stations and write some information to stdout
 for (WeatherStation weatherStation : stations) {
-    System.out.println(weatherStation.getStationId() + "\t" + "\t" + weatherStation.getCity() + "\t" + weatherStation.getCountry());		
+    System.out.println(weatherStation.getStationId() + "\t" + "\t" + weatherStation.getCity() + 
+"\t" + weatherStation.getCountry());		
 }
 }}}
 
-== Fetch weather data by given date ==
+== Fetch weather data by given date (release 1.0.2) ==
 
 {{{
 // set desired date ...
