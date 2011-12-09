@@ -18,10 +18,10 @@ HttpDataReaderService dataReader = new HttpDataReaderService();
 WeatherStation weatherStation = WeatherStations.ALL.get("INORDRHE72");
 
 // set selected weather station to data reader
-httpDataReaderService.setWeatherStation(weatherStation);
+dataReader.setWeatherStation(weatherStation);
 
 // get current (last) weather data set from selected station
-DataSet current = httpDataReaderService.getCurrentData();
+DataSet current = dataReader.getCurrentData();
 
 // print selected weather station ID
 System.out.println(weatherStation.getStationId());
