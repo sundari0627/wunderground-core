@@ -72,7 +72,7 @@ DataSet minTemp = this.httpDataReaderService.minTemperature();
 DataSet maxTemp = this.httpDataReaderService.maxTemperature();
 }}}
 
-== support connections through a http proxy server (since release 1.0.5) ==
+== connections through a http proxy server (since release 1.0.5) ==
 
 {{{
 // create HttpProxy object and set proxy data
