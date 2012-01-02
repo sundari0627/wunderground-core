@@ -49,10 +49,18 @@ public class HttpDataReaderService extends AbstractDataReaderService {
 		if((this.scanner == null && this.connection == null && this.weatherStation != null) || isStationChanged) {
 			this.datasets = new ArrayList<DataSet>();
 		    this.currentLine = 1;
+		    
+		    // supports connections through a proxy server
 			if(httpProxy != null && httpProxy.isEnabled()) {
 				System.setProperty("proxySet", "true");
 				System.setProperty("http.proxyHost", httpProxy.getUrl());
 				System.setProperty("http.proxyPort", Integer.toString(httpProxy.getPort()));
+				if(httpProxy.getUsername() != null && !httpProxy.getUsername().equalsIgnoreCase("")) {
+					System.setProperty("http.proxyUser", httpProxy.getUsername());
+				}
+				if(httpProxy.getPassword() != null && !httpProxy.getPassword().equalsIgnoreCase("")) {
+					System.setProperty("http.proxyPassword", httpProxy.getPassword());
+				}
 			}
 			
 			URL url = new URL(this.url.replace("{1}", this.weatherStation.getStationId())); 
