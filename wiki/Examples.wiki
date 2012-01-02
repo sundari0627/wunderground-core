@@ -71,3 +71,23 @@ DataSet minTemp = this.httpDataReaderService.minTemperature();
 // investigate maximum temperature of desired day ...
 DataSet maxTemp = this.httpDataReaderService.maxTemperature();
 }}}
+
+== support connections through a http proxy server ==
+
+{{{
+// create HttpProxy object and set proxy data
+HttpProxy proxy = new HttpProxy();
+proxy.setUrl("my-proxy-server-url");
+proxy.setPort(8080);
+proxy.setUsername("me");
+proxy.setPassword("secret");
+
+// create HttpDataReaderService
+HttpDataReaderService dataReader = new HttpDataReaderService();
+
+// assign HttpProxy object to data reader
+dataReader.setHttpProxy(proxy);
+
+// ... do something
+DataSet current = dataReader.getCurrentData();
+}}}
