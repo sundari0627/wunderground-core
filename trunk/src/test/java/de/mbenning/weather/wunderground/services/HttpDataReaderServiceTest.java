@@ -6,6 +6,7 @@ package de.mbenning.weather.wunderground.services;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import de.mbenning.weather.wunderground.api.domain.DataGraphSpan;
 import de.mbenning.weather.wunderground.api.domain.DataSet;
 import de.mbenning.weather.wunderground.api.domain.HttpProxy;
 import de.mbenning.weather.wunderground.api.domain.WeatherStations;
@@ -86,5 +88,18 @@ public class HttpDataReaderServiceTest extends AbstractBaseServiceTest {
     	DataSet maxTemp = this.httpDataReaderService.maxTemperature();
         this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), maxTemp);
     }
+    
+   @Test
+   public void testGraphSpanMonth() throws Exception {
+	   this.httpDataReaderService.setWeatherStation(WeatherStations.INOORDBR35_BOXMEER);
+   	   this.httpDataReaderService.setHttpProxy(new HttpProxy());
+   	   this.httpDataReaderService.setDataGraphSpan(DataGraphSpan.MONTH);
+   	   this.httpDataReaderService.setWeatherDate(new DateTime(2012, 2, 1, 0, 0, 0).toDate());
+   	   
+   	   List<DataSet> monthly = this.httpDataReaderService.readDataSets();
+   	   for (DataSet dataSet : monthly) {
+   		   System.out.println(dataSet.getDateTime() + "\t" + dataSet.getTemperatureHigh() + "\t" + dataSet.getTemperatureLow());
+   	   }
+   }
     
 }

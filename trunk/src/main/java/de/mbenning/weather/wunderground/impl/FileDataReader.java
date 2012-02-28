@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import de.mbenning.weather.wunderground.api.domain.DataColumn;
+import de.mbenning.weather.wunderground.api.domain.DataColumnDay;
 import de.mbenning.weather.wunderground.api.domain.DataSet;
 
 /**
@@ -97,15 +97,15 @@ public class FileDataReader {
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        dataSet.setDateTime(sdf.parse(columns[DataColumn.TIME.getIndex()]));
-        dataSet.setTemperature(Double.valueOf(columns[DataColumn.TEMPERATURE.getIndex()]));
-        dataSet.setDewPoint(Double.valueOf(columns[DataColumn.DEWPOINT.getIndex()]));
-        dataSet.setPressurehPa(Double.valueOf(columns[DataColumn.PRESSURE.getIndex()]));
-        dataSet.setWindDirection(new String(columns[DataColumn.WIND_DIRECTION.getIndex()].getBytes(), ENCODING));
-        dataSet.setWindDirectionDegrees(Double.valueOf(columns[DataColumn.WIND_DIRECTION_DEGREES.getIndex()]));
-        dataSet.setWindSpeedKmh(Double.valueOf(columns[DataColumn.WINDSPEED_KMH.getIndex()]));
-        dataSet.setHumidity(Integer.valueOf(DataColumn.HUMIDITY.getIndex()));
-        dataSet.setRainRateHourlyMm(Double.valueOf(columns[DataColumn.RAINRATE_HOURLY_MM.getIndex()]));
+        dataSet.setDateTime(sdf.parse(columns[DataColumnDay.TIME.getIndex()]));
+        dataSet.setTemperature(Double.valueOf(columns[DataColumnDay.TEMPERATURE.getIndex()]));
+        dataSet.setDewPoint(Double.valueOf(columns[DataColumnDay.DEWPOINT.getIndex()]));
+        dataSet.setPressurehPa(Double.valueOf(columns[DataColumnDay.PRESSURE.getIndex()]));
+        dataSet.setWindDirection(new String(columns[DataColumnDay.WIND_DIRECTION.getIndex()].getBytes(), ENCODING));
+        dataSet.setWindDirectionDegrees(Double.valueOf(columns[DataColumnDay.WIND_DIRECTION_DEGREES.getIndex()]));
+        dataSet.setWindSpeedKmh(Double.valueOf(columns[DataColumnDay.WINDSPEED_KMH.getIndex()]));
+        dataSet.setHumidity(Integer.valueOf(DataColumnDay.HUMIDITY.getIndex()));
+        dataSet.setRainRateHourlyMm(Double.valueOf(columns[DataColumnDay.RAINRATE_HOURLY_MM.getIndex()]));
         
         return dataSet;
     }

@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import de.mbenning.weather.wunderground.api.domain.DataGraphSpan;
 import de.mbenning.weather.wunderground.api.domain.DataSet;
 import de.mbenning.weather.wunderground.api.domain.HttpProxy;
 import de.mbenning.weather.wunderground.impl.services.base.AbstractDataReaderService;
@@ -65,14 +66,21 @@ public class HttpDataReaderService extends AbstractDataReaderService {
 			
 			URL url = new URL(this.url.replace("{1}", this.weatherStation.getStationId())); 
 			if(this.weatherDate != null) {
-				//day=18&year=2011&month=10&graphspan=month
-			    DateTime waetherDateTime = new DateTime(weatherDate.getTime());
-				StringBuilder dateUrl = new StringBuilder(this.url.replace("{1}", this.weatherStation.getStationId()));
-				dateUrl.append("&day=").append(waetherDateTime.get(DateTimeFieldType.dayOfMonth())).append("&");
-				dateUrl.append("year=").append(waetherDateTime.get(DateTimeFieldType.year())).append("&");
-				dateUrl.append("month=").append(waetherDateTime.get(DateTimeFieldType.monthOfYear())).append("&");
-				//dateUrl.append("graphspan=month");
-				url = new URL(dateUrl.toString());
+				if(this.dataGraphSpan.equals(DataGraphSpan.DAY)) {
+				    DateTime waetherDateTime = new DateTime(weatherDate.getTime());
+					StringBuilder dateUrl = new StringBuilder(this.url.replace("{1}", this.weatherStation.getStationId()));
+					dateUrl.append("&day=").append(waetherDateTime.get(DateTimeFieldType.dayOfMonth())).append("&");
+					dateUrl.append("year=").append(waetherDateTime.get(DateTimeFieldType.year())).append("&");
+					dateUrl.append("month=").append(waetherDateTime.get(DateTimeFieldType.monthOfYear())).append("&");
+					url = new URL(dateUrl.toString());
+				} else if(this.dataGraphSpan.equals(DataGraphSpan.MONTH)) {
+					DateTime weatherDateTime = new DateTime(weatherDate.getTime());
+					StringBuilder dateUrl = new StringBuilder(this.url.replace("{1}", this.weatherStation.getStationId()));
+					dateUrl.append("&month=").append(weatherDateTime.get(DateTimeFieldType.monthOfYear())).append("&");
+					dateUrl.append("year=").append(weatherDateTime.get(DateTimeFieldType.year())).append("&");
+					dateUrl.append("graphspan=month");
+					url = new URL(dateUrl.toString());
+				}
 			} 
 			this.connection = (HttpURLConnection)url.openConnection();
 			this.connection.setRequestMethod("GET");
