@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-import de.mbenning.weather.wunderground.api.domain.DataColumn;
+import de.mbenning.weather.wunderground.api.domain.DataColumnDay;
+import de.mbenning.weather.wunderground.api.domain.DataColumnMonth;
+import de.mbenning.weather.wunderground.api.domain.DataGraphSpan;
 import de.mbenning.weather.wunderground.api.domain.DataSet;
 import de.mbenning.weather.wunderground.api.domain.DataSetDewComparator;
 import de.mbenning.weather.wunderground.api.domain.DataSetTempComparator;
@@ -40,6 +42,8 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
     protected List<DataSet> datasets = new ArrayList<DataSet>();
     
     protected List<IDataListener> listeners = new ArrayList<IDataListener>();
+    
+    protected DataGraphSpan dataGraphSpan = DataGraphSpan.DAY;
 
 	/* (non-Javadoc)
 	 * @see de.mbenning.weather.wunderground.api.services.IDataReaderService#getNextLine()
@@ -79,18 +83,27 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
 		dataSet.setWeatherStation(this.weatherStation);
         String[] columns = this.nextDataColumns();
         
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        
         if(columns != null && columns.length > 0 && !columns[0].equalsIgnoreCase("")) {
-	        dataSet.setDateTime(sdf.parse(columns[DataColumn.TIME.getIndex()]));
-	        dataSet.setTemperature(Double.valueOf(columns[DataColumn.TEMPERATURE.getIndex()]));
-	        dataSet.setDewPoint(Double.valueOf(columns[DataColumn.DEWPOINT.getIndex()]));
-	        dataSet.setPressurehPa(Double.valueOf(columns[DataColumn.PRESSURE.getIndex()]));
-	        dataSet.setWindDirection(new String(columns[DataColumn.WIND_DIRECTION.getIndex()].getBytes(), ENCODING));
-	        dataSet.setWindDirectionDegrees(Double.valueOf(columns[DataColumn.WIND_DIRECTION_DEGREES.getIndex()]));
-	        dataSet.setWindSpeedKmh(Double.valueOf(columns[DataColumn.WINDSPEED_KMH.getIndex()]));
-	        dataSet.setHumidity(Integer.valueOf(DataColumn.HUMIDITY.getIndex()));
-	        dataSet.setRainRateHourlyMm(Double.valueOf(columns[DataColumn.RAINRATE_HOURLY_MM.getIndex()]));
+        	if(dataGraphSpan.equals(DataGraphSpan.DAY)) {
+        		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		        dataSet.setDateTime(sdf.parse(columns[DataColumnDay.TIME.getIndex()]));
+		        dataSet.setTemperature(Double.valueOf(columns[DataColumnDay.TEMPERATURE.getIndex()]));
+		        dataSet.setDewPoint(Double.valueOf(columns[DataColumnDay.DEWPOINT.getIndex()]));
+		        dataSet.setPressurehPa(Double.valueOf(columns[DataColumnDay.PRESSURE.getIndex()]));
+		        dataSet.setWindDirection(new String(columns[DataColumnDay.WIND_DIRECTION.getIndex()].getBytes(), ENCODING));
+		        dataSet.setWindDirectionDegrees(Double.valueOf(columns[DataColumnDay.WIND_DIRECTION_DEGREES.getIndex()]));
+		        dataSet.setWindSpeedKmh(Double.valueOf(columns[DataColumnDay.WINDSPEED_KMH.getIndex()]));
+		        dataSet.setHumidity(Integer.valueOf(DataColumnDay.HUMIDITY.getIndex()));
+		        dataSet.setRainRateHourlyMm(Double.valueOf(columns[DataColumnDay.RAINRATE_HOURLY_MM.getIndex()]));
+		        dataSet.setDataGraphSpan(DataGraphSpan.DAY);
+        	} else if(dataGraphSpan.equals(DataGraphSpan.MONTH)) {
+        		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        		dataSet.setDateTime(sdf.parse(columns[DataColumnMonth.TIME.getIndex()]));
+		        dataSet.setTemperatureHigh(Double.valueOf(columns[DataColumnMonth.TEMPERATURE_HIGH.getIndex()]));
+		        dataSet.setTemperatureAvg(Double.valueOf(columns[DataColumnMonth.TEMPERATURE_AVG.getIndex()]));
+		        dataSet.setTemperatureLow(Double.valueOf(columns[DataColumnMonth.TEMPERATURE_LOW.getIndex()]));
+        		dataSet.setDataGraphSpan(DataGraphSpan.MONTH);
+        	}
         }
         
         return dataSet;
@@ -236,5 +249,13 @@ public abstract class AbstractDataReaderService implements IDataReaderService {
     public void setDatasets(List<DataSet> datasets) {
         this.datasets = datasets;
     }
+
+	public DataGraphSpan getDataGraphSpan() {
+		return dataGraphSpan;
+	}
+
+	public void setDataGraphSpan(DataGraphSpan dataGraphSpan) {
+		this.dataGraphSpan = dataGraphSpan;
+	}
 
 }

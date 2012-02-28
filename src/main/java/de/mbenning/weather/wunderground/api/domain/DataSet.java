@@ -36,6 +36,15 @@ public class DataSet implements Serializable {
     
     private Double rainRateHourlyMm;
     
+    /* MONTH */
+    private Double temperatureHigh;
+    
+    private Double temperatureAvg;
+    
+    private Double temperatureLow;
+    
+    private DataGraphSpan dataGraphSpan;
+    
     public DataSet() {
     }
     
@@ -130,5 +139,37 @@ public class DataSet implements Serializable {
     public void setRainRateHourlyMm(Double rainRateHourlyMm) {
         this.rainRateHourlyMm = rainRateHourlyMm;
     }
+
+	public DataGraphSpan getDataGraphSpan() {
+		return dataGraphSpan;
+	}
+
+	public void setDataGraphSpan(DataGraphSpan dataGraphSpan) {
+		this.dataGraphSpan = dataGraphSpan;
+	}
+
+	public Double getTemperatureHigh() {
+		return temperatureHigh;
+	}
+
+	public void setTemperatureHigh(Double temperatureHigh) {
+		this.temperatureHigh = temperatureHigh;
+	}
+
+	public Double getTemperatureAvg() {
+		return temperatureAvg;
+	}
+
+	public void setTemperatureAvg(Double temperatureAvg) {
+		this.temperatureAvg = temperatureAvg;
+	}
+
+	public Double getTemperatureLow() {
+		return temperatureLow;
+	}
+
+	public void setTemperatureLow(Double temperatureLow) {
+		this.temperatureLow = temperatureLow;
+	}
 
 }

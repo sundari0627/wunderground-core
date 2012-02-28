@@ -9,7 +9,7 @@ import java.util.Date;
  * @author Martin.Benning
  *
  */
-public enum DataColumn {
+public enum DataColumnDay {
     
     TIME ("Zeit", "Time", 0, Date.class),
     TEMPERATURE ("Temperatur", "TemperatureC", 1, Double.class),
@@ -26,7 +26,7 @@ public enum DataColumn {
     private int index;
     private Class<?> type;
     
-    private DataColumn(String name, String title, int index, Class<?> type) {
+    private DataColumnDay(String name, String title, int index, Class<?> type) {
         this.name = name;
         this.title = title;
         this.index = index;

@@ -4,7 +4,7 @@
 
 	<groupId>de.mbenning.weather.wunderground</groupId>
 	<artifactId>wunderground-core</artifactId>
-	<version>1.0.4</version>
+	<version>1.0.6</version>
 	<packaging>jar</packaging>
 
 	<name>wunderground-core</name>
