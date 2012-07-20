@@ -21,6 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import de.mbenning.weather.wunderground.api.domain.DataGraphSpan;
 import de.mbenning.weather.wunderground.api.domain.DataSet;
 import de.mbenning.weather.wunderground.api.domain.HttpProxy;
+import de.mbenning.weather.wunderground.api.domain.WeatherStation;
 import de.mbenning.weather.wunderground.api.domain.WeatherStations;
 import de.mbenning.weather.wunderground.impl.services.HttpDataReaderService;
 import de.mbenning.weather.wunderground.services.base.AbstractBaseServiceTest;
@@ -71,21 +72,35 @@ public class HttpDataReaderServiceTest extends AbstractBaseServiceTest {
     	
     	this.httpDataReaderService.setWeatherStation(WeatherStations.IZEELAND13_GOES);
     	this.printWeatherStationData(httpDataReaderService.getWeatherStation(), httpDataReaderService.getCurrentData());
+    	
+    	this.httpDataReaderService.setWeatherStation(new WeatherStation("ILIMBURG22"));
+    	this.printWeatherStationData(httpDataReaderService.getWeatherStation(), httpDataReaderService.getCurrentData());
     }
     
     @Test
     public void testGetDataByDate() throws Exception {
         // set desired date ...
-        Date weatherDate = new DateTime(2011, 8, 15, 0, 0, 0).toDate();
+        Date weatherDate = new DateTime(2012, 3, 13, 0, 0, 0).toDate();
     	this.httpDataReaderService.setWeatherStation(WeatherStations.INOORDBR35_BOXMEER);
     	this.httpDataReaderService.setHttpProxy(new HttpProxy());
     	// set desired date to HttpDataReaderService
     	this.httpDataReaderService.setWeatherDate(weatherDate);
+    	Assert.assertTrue(weatherDate.equals(httpDataReaderService.getWeatherDate()));
     	// investigate minimum temperature of desired day ...
     	DataSet minTemp = this.httpDataReaderService.minTemperature();
     	this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), minTemp);
     	// investigate maximum temperature of desired day ...
     	DataSet maxTemp = this.httpDataReaderService.maxTemperature();
+        this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), maxTemp);
+        
+        weatherDate = new DateTime(2012, 4, 27, 0, 0, 0).toDate();
+        this.httpDataReaderService.setWeatherDate(weatherDate);
+        Assert.assertTrue(weatherDate.equals(httpDataReaderService.getWeatherDate()));
+        // investigate minimum temperature of desired day ...
+    	minTemp = this.httpDataReaderService.minTemperature();
+    	this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), minTemp);
+    	// investigate maximum temperature of desired day ...
+    	maxTemp = this.httpDataReaderService.maxTemperature();
         this.printWeatherStationData(this.httpDataReaderService.getWeatherStation(), maxTemp);
     }
     
