@@ -37,7 +37,7 @@ public class WeatherStationServiceTest extends AbstractBaseServiceTest {
 	
 	@Test
 	public void testFindAllWeatherStationsByCountry() throws Exception {
-		List<WeatherStation> weatherStations = weatherStationService.findAllWeatherStationsByCountry("Netherlands");
+		List<WeatherStation> weatherStations = weatherStationService.findAllWeatherStationsByCountry("Us");
 		for (WeatherStation weatherStation : weatherStations) {
 			System.out.println(weatherStation.getStationId() + " " + weatherStation.getNeighborhood());
 		}
