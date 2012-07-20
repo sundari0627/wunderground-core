@@ -39,6 +39,8 @@ public class HttpDataReaderService extends AbstractDataReaderService {
 	
 	private Date weatherDate;
 	
+	private boolean isDateChanged = false;
+	
 	@Autowired
 	@Qualifier("httpProxy")
 	private HttpProxy httpProxy;
@@ -47,7 +49,7 @@ public class HttpDataReaderService extends AbstractDataReaderService {
 	 * @see de.mbenning.weather.wunderground.api.services.IDataReaderService#init()
 	 */
 	public void init() throws IOException {
-		if((this.scanner == null && this.connection == null && this.weatherStation != null) || isStationChanged) {
+		if((this.scanner == null && this.connection == null && this.weatherStation != null) || isStationChanged || isDateChanged) {
 			this.datasets = new ArrayList<DataSet>();
 		    this.currentLine = 1;
 		    
@@ -92,6 +94,7 @@ public class HttpDataReaderService extends AbstractDataReaderService {
 				this.scanner.nextLine();
 			}
 			isStationChanged = false;
+			isDateChanged = false;
 		}
 	}
 
@@ -100,6 +103,7 @@ public class HttpDataReaderService extends AbstractDataReaderService {
 	}
 
 	public void setWeatherDate(Date weatherDate) {
+		this.isDateChanged = true;
 		this.weatherDate = weatherDate;
 	}
 
@@ -109,6 +113,14 @@ public class HttpDataReaderService extends AbstractDataReaderService {
 
 	public void setHttpProxy(HttpProxy httpProxy) {
 		this.httpProxy = httpProxy;
+	}
+
+	public boolean isDateChanged() {
+		return isDateChanged;
+	}
+
+	public void setDateChanged(boolean isDateChanged) {
+		this.isDateChanged = isDateChanged;
 	}
 
 }
